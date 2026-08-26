@@ -360,6 +360,7 @@ app.get("/", (req, res) => {
     <section class="todo-section">
       <div class="todo-header">
         <h1>Tasks</h1>
+        <span class="badge">${todos.length} total</span>
         <span class="badge">${remaining} left</span>
       </div>
       <form method="POST" action="/add" class="add-form">
