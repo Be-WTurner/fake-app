@@ -128,7 +128,7 @@ jobs:
 
           Respond in exactly this format:
           Line 1: "DOCS_NEEDED: YES" or "DOCS_NEEDED: NO"
-          Line 2 onward: a 1-3 sentence explanation that references what the diff actually shows.
+          Line 2 onward: an explanation that references what the diff actually shows.
           EOF
           )
 
