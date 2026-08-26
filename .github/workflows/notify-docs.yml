@@ -212,17 +212,11 @@ jobs:
         env:
           DOCS_DISPATCH_TOKEN: ${{ secrets.DOCS_DISPATCH_TOKEN }}
           DECISION: ${{ steps.openai.outputs.decision }}
+          EXPLANATION: ${{ steps.openai.outputs.explanation }}
           PR_NUMBER: ${{ env.PR_NUMBER }}
           PR_URL: ${{ env.PR_URL }}
           PR_TITLE: ${{ env.PR_TITLE }}
         run: |
-          # Write explanation to file to avoid bash interpolation issues
-          cat << 'EXPLANATION_EOF' > explanation.txt
-          ${{ steps.openai.outputs.explanation }}
-          EXPLANATION_EOF
-
-          EXPLANATION=$(cat explanation.txt)
-
           PAYLOAD=$(jq -n \
             --arg decision "$DECISION" \
             --arg explanation "$EXPLANATION" \
