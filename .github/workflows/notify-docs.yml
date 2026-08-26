@@ -211,13 +211,24 @@ jobs:
       - name: Dispatch to fake-docs
         env:
           DOCS_DISPATCH_TOKEN: ${{ secrets.DOCS_DISPATCH_TOKEN }}
+          DECISION: ${{ steps.openai.outputs.decision }}
+          PR_NUMBER: ${{ env.PR_NUMBER }}
+          PR_URL: ${{ env.PR_URL }}
+          PR_TITLE: ${{ env.PR_TITLE }}
         run: |
+          # Write explanation to file to avoid bash interpolation issues
+          cat << 'EXPLANATION_EOF' > explanation.txt
+          ${{ steps.openai.outputs.explanation }}
+          EXPLANATION_EOF
+
+          EXPLANATION=$(cat explanation.txt)
+
           PAYLOAD=$(jq -n \
-            --arg decision "${{ steps.openai.outputs.decision }}" \
-            --arg explanation "${{ steps.openai.outputs.explanation }}" \
-            --arg pr_number "${{ env.PR_NUMBER }}" \
-            --arg pr_url "${{ env.PR_URL }}" \
-            --arg pr_title "${{ env.PR_TITLE }}" \
+            --arg decision "$DECISION" \
+            --arg explanation "$EXPLANATION" \
+            --arg pr_number "$PR_NUMBER" \
+            --arg pr_url "$PR_URL" \
+            --arg pr_title "$PR_TITLE" \
             '{
               event_type: "app-pr-analyzed",
               client_payload: {
