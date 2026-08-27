@@ -317,6 +317,7 @@ const nav = (active) => `
 <nav>
   <a href="/" class="${active === "home" ? "active" : ""}">Tasks</a>
   <a href="/stuff" class="${active === "stuff" ? "active" : ""}">Stuff</a>
+  <a href="/random" class="${active === "random" ? "active" : ""}">Random</a>
   <a href="/contact" class="${active === "contact" ? "active" : ""}">Contact</a>
 </nav>`;
 
@@ -428,6 +429,22 @@ app.get("/stuff", (req, res) => {
       <div class="info-block">
         <p>This page exists so your workflow has multiple routes to screenshot.</p>
         <p>Stack: Node.js · Express · zero frontend dependencies.</p>
+      </div>
+    </section>`));
+});
+
+app.get("/random", (req, res) => {
+  const number = Math.floor(Math.random() * 100) + 1;
+
+  res.send(shell("Random", "random", `
+    <section class="page-section">
+      <h1>Random</h1>
+      <p class="subtitle">A fresh random number, generated on every visit.</p>
+      <div class="stats-grid" style="grid-template-columns: 1fr;">
+        <div class="stat">
+          <span class="stat-num">${number}</span>
+          <span class="stat-label">between 1 and 100</span>
+        </div>
       </div>
     </section>`));
 });
