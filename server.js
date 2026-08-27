@@ -437,8 +437,8 @@ app.get("/random", (req, res) => {
   const number = Math.floor(Math.random() * 100) + 1;
 
   res.send(shell("Random", "random", `
-    <section class="page-section">
-      <h1>Random</h1>
+    <section class="page-section" style="--accent: #ff8c3c;">
+      <h1 style="color: var(--accent);">Random</h1>
       <p class="subtitle">A fresh random number, generated on every visit.</p>
       <div class="stats-grid" style="grid-template-columns: 1fr;">
         <div class="stat">
